@@ -5,7 +5,7 @@
 /*
 Voce devera implementar uma programa que simule o funcionamento de uma
 agenda telefonica. Para isso, implemente um programa principal que tenha
-um menu retornavel onde o usuario escolhe dentre as opcoes possíveis.
+um menu retornavel onde o usuario escolhe dentre as opcoes possÃ­veis.
 
 Requisitos funcionais:
 
@@ -135,18 +135,5 @@ int main()
             printf("Opcao invalida. Tente novamente\n");
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
     return 0;
 }
