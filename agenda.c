@@ -48,6 +48,16 @@ int insereContato(Lista* l, struct contato ctt) {
     if(l == NULL) return 0;
     Elemento* novo = (Elemento*) malloc(sizeof(Elemento));
     if(novo == NULL) return 0;
+
+    Elemento* aux = *l;
+    while(aux != NULL){
+        if(ctt.telefone == aux->dados.telefone){
+            printf("\nNao e possivel inserir contatos com o mesmo telefone.\n");
+            return 0;
+        }
+        aux = aux->proximo;
+    }
+
     novo->dados = ctt;
     novo->proximo = (*l);
     *l = novo;
@@ -66,7 +76,10 @@ int buscaContato(Lista* l, char nome[50], struct contato* ctt) {
 }
 
 int removeContato(Lista *l, char nome[50]) {
-
+    if(*l == NULL) {
+        printf("A lista esta vazia.\n");
+        return 0;
+    }
     if(vazia(l)) {
         return 0;
     }else if(!strcmp((*l)->dados.nome, nome)) {
@@ -82,29 +95,26 @@ int removeContato(Lista *l, char nome[50]) {
             aux = aux->proximo;
         }
         if(aux == NULL) {
-            printf("Contato inexistente.");
+            printf("Contato inexistente.\n");
             return 0;
         }
         ant->proximo = aux->proximo;
         free(aux);
-
+        printf("Contato removido com sucesso.\n");
         return 1;
     }
 }
 
-
 int imprimeLista(Lista *l){
-    int i = 0;
     if(l== NULL){
         return 0;
     }else{
         Elemento *aux = *l;
         while(aux != NULL){
-            printf("----------------%d----------------\n", i);
+            printf("--------------------------------\n");
             printf("Nome: %s\nTelefone: %d\n", aux->dados.nome, aux->dados.telefone);
             printf("--------------------------------\n");
             aux = aux->proximo;
-            i++;
         }
         return 1;
     }

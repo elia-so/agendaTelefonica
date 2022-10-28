@@ -44,6 +44,7 @@ void imprimeMenu() {
     printf("3- Remover contato\n");
     printf("4- Mostrar lista\n");
     printf("5- Apagar todos os contatos\n");
+    printf("6- Editar contato\n");
     printf("0- Sair do Programa\n");
 }
 
@@ -60,6 +61,7 @@ int main()
     Lista *l;
     int opcao = -1;
     char nome[50];
+    int telefone;
     struct contato *dados;
     l = NULL;
     l = criar();
@@ -71,25 +73,61 @@ int main()
         if(opcao == 1){
             preencheContato(dados);
             insereContato(l, *dados);
+            system("cls");
+            printf("Contato inserido com sucesso.\n");
         }else if(opcao == 2){
             printf("\nInforme o nome do contato: ");
             fflush(stdin);
             gets (nome);
             buscaContato(l, nome, dados);
-            printf("--------------------------------\n");
-            printf("Nome: %s\nTelefone: %d\n", dados->nome, dados->telefone);
-            printf("--------------------------------\n");
+            system("cls");
+            if(vazia(l)) {
+                printf("Lista vazia.\n");
+            }else {
+                printf("--------------------------------\n");
+                printf("Nome: %s\nTelefone: %d\n", dados->nome, dados->telefone);
+                printf("--------------------------------\n");
+            }
         }else if(opcao == 3){
             printf("Informe o nome do contato: ");
             fflush(stdin);
             gets (nome);
+            system("cls");
+            if(vazia(l)) {
+                printf("A lista esta vazia.\n");
+            }else {
             removeContato(l, nome);
+            printf("Contato removido com sucesso.\n");
+            }
         }else if(opcao == 4){
+            system("cls");
             if(vazia(l)) printf("Lista vazia.\n");
             imprimeLista(l);
         }else if(opcao == 5){
             destruir(l);
+            system("cls");
             printf("Todos os contatos foram apagados com sucesso.\n");
+        }else if(opcao == 6){
+            printf("\nInforme o nome do contato que deseja editar: ");
+            fflush(stdin);
+            gets (nome);
+            system("cls");
+            if(vazia(l)) {
+                printf("Lista vazia.\n");
+            }else {
+                buscaContato(l, nome, dados);
+                if(buscaContato(l, nome, dados) == 1) {
+                    printf("--------------------------------\n");
+                    printf("Nome: %s\nTelefone: %d\n", dados->nome, dados->telefone);
+                    printf("--------------------------------\n");
+                    removeContato(l, nome);
+                    preencheContato(dados);
+                    insereContato(l, *dados);
+                    printf("Contato editado com sucesso.\n");
+                } else {
+                    printf("Contato inexistente.\n");
+                }
+            }
         }else if(opcao == 0){
             printf("Finalizando o programa\n");
             destruir(l);
